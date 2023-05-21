@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ecofood-back:
+    image: ecofood-back-img
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app/app
+    env_file:
+      - .env
+    ports:
+      - ${PORT}:${PORT}
+    tty: true
