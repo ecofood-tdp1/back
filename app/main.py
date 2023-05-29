@@ -5,13 +5,14 @@ from os import environ
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from .api import api_router
 
 load_dotenv()
 
 MONGODB_URI = environ["MONGODB_URI"]
 DB_NAME = environ["DB_NAME"]
 
-app = FastAPI()
+app = FastAPI(title="EcoFood")
 logger = logging.getLogger("app")
 
 origins = ["*"]
@@ -46,6 +47,9 @@ async def shutdown_db_client():
     logger.info("App shutdown!")
 
 
-@app.get("/", tags=["home"])
+@app.get("/", tags=["Health"])
 def get_root() -> dict:
     return {"message": "OK"}
+
+
+app.include_router(api_router)
