@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from .auctions import auctions_router
 from .orders import orders_router
 from .packs import packs_router
 from .shops import shops_router
@@ -12,3 +13,4 @@ api_router.include_router(shops_router, tags=["Shops"], prefix="/shops")
 api_router.include_router(packs_router, tags=["Packs"], prefix="/packs")
 api_router.include_router(transactions_router, tags=["Transactions"], prefix="/transactions")
 api_router.include_router(orders_router, tags=["Orders"], prefix="/orders")
+api_router.include_router(auctions_router, tags=["Auctions"], prefix="/auctions")
