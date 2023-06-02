@@ -1,6 +1,8 @@
+import re
+
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from typing import List
+from typing import List, Optional
 
 from app.models.shops import Shop, ShopUpdate
 
@@ -26,8 +28,15 @@ def create_shop(request: Request, shop: Shop = Body(...)):
 @shops_router.get(
     "", response_description="List all shops", response_model=List[Shop]
 )
-def get_shops(request: Request):
-    shops = list(request.app.database["shops"].find(limit=100))
+def get_shops(request: Request, neighborhood: Optional[str] = None, type: Optional[str] = None):
+    filters = {}
+    if neighborhood:
+        filters["neighborhood"] = re.compile(neighborhood, re.IGNORECASE)
+
+    if type:
+        filters["type"] = type
+
+    shops = list(request.app.database["shops"].find(filters, limit=100))
     return shops
 
 
