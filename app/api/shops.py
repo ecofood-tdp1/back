@@ -1,3 +1,5 @@
+import re
+
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from typing import List, Optional
@@ -29,7 +31,7 @@ def create_shop(request: Request, shop: Shop = Body(...)):
 def get_shops(request: Request, neighborhood: Optional[str] = None, type: Optional[str] = None):
     filters = {}
     if neighborhood:
-        filters["neighborhood"] = neighborhood
+        filters["neighborhood"] = re.compile(neighborhood, re.IGNORECASE)
 
     if type:
         filters["type"] = type
