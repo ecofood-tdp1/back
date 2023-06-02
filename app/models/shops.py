@@ -23,6 +23,7 @@ class Shop(BaseModel):
     phone: str = Field(...)
     description: Optional[str] = Field(...)
     address: str = Field(...)
+    neighborhood: str = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -34,7 +35,8 @@ class Shop(BaseModel):
                 "pick_up_to": 21,
                 "description": "La mejor Pizza de Buenos Aires",
                 "phone": "1111-1111",
-                "address": "Av. Corrientes 1200"
+                "address": "Av. Corrientes 1200",
+                "neighborhood": "Balvanera",
             }
         }
 
@@ -47,6 +49,7 @@ class ShopUpdate(BaseModel):
     phone: Optional[str] = Field(...)
     description: Optional[str] = Field(...)
     address: Optional[str] = Field(...)
+    neighborhood: Optional[str] = Field(...)
 
     class Config:
         schema_extra = {
@@ -57,6 +60,7 @@ class ShopUpdate(BaseModel):
                 "pick_up_to": 21,
                 "description": "La mejor Pizza de Buenos Aires",
                 "phone": "1111-1111",
-                "address": "Av. Corrientes 1200"
+                "address": "Av. Corrientes 1200",
+                "neighborhood": "Balvanera",
             }
         }
