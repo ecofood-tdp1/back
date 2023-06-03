@@ -24,6 +24,7 @@ class Shop(BaseModel):
     description: Optional[str] = Field(...)
     address: str = Field(...)
     neighborhood: str = Field(...)
+    imageURL: str = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -37,6 +38,7 @@ class Shop(BaseModel):
                 "phone": "1111-1111",
                 "address": "Av. Corrientes 1200",
                 "neighborhood": "Balvanera",
+                "imageURL": "http://exampleimage.com",
             }
         }
 
@@ -50,6 +52,7 @@ class ShopUpdate(BaseModel):
     description: Optional[str] = Field(...)
     address: Optional[str] = Field(...)
     neighborhood: Optional[str] = Field(...)
+    imageURL: Optional[str] = Field(...)
 
     class Config:
         schema_extra = {
@@ -62,5 +65,6 @@ class ShopUpdate(BaseModel):
                 "phone": "1111-1111",
                 "address": "Av. Corrientes 1200",
                 "neighborhood": "Balvanera",
+                "imageURL": "http://exampleimage.com",
             }
         }
