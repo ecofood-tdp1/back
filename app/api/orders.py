@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from typing import List
+from typing import List, Optional
 
 from app.models.orders import Order, OrderUpdateStatus
 
@@ -26,8 +26,14 @@ def create_order(request: Request, order: Order = Body(...)):
 @orders_router.get(
     "", response_description="List all orders", response_model=List[Order]
 )
-def get_orders(request: Request):
-    orders = list(request.app.database["orders"].find(limit=100))
+def get_orders(request: Request, shop_id: Optional[str] = None, user_id: Optional[str] = None):
+    filters = {}
+    if shop_id:
+        filters["shop_id"] = shop_id
+    if user_id:
+        filters["user_id"] = user_id
+
+    orders = list(request.app.database["orders"].find(filters, limit=100))
     return orders
 
 

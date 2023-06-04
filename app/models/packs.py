@@ -29,6 +29,7 @@ class Pack(BaseModel):
     best_before: Union[str, date] = Field(...)
     price: Price = Field(...)
     original_price: Price = Field(...)
+    imageURL: str = Field(...)
 
     class Config:
         allow_population_by_field_name = True
@@ -62,6 +63,7 @@ class Pack(BaseModel):
                     "amount": 4000,
                     "currency": "ARS",
                 },
+                "imageURL": "http://exampleimage.com"
             }
         }
 
@@ -74,6 +76,7 @@ class PackUpdate(BaseModel):
     best_before: Union[str, date, None] = Field(...)
     price: Optional[Price] = Field(...)
     original_price: Optional[Price] = Field(...)
+    imageURL: Optional[str] = Field(...)
 
     class Config:
         schema_extra = {
@@ -104,5 +107,6 @@ class PackUpdate(BaseModel):
                     "amount": 4000,
                     "currency": "ARS",
                 },
+                "imageURL": "http://exampleimage.com"
             }
         }
