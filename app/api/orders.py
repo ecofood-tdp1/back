@@ -82,7 +82,7 @@ def update_order_status(id: str, request: Request, order: OrderUpdateStatus = Bo
     ) is not None:
         if existing_order["status"] == OrderStatus.delivered.value:
             wallet_update = WalletUpdate(
-                amount=float(existing_order["total"]["amount"]) * FEE,
+                amount=float(existing_order["total"]["amount"]) * (1 - FEE),
                 currency=existing_order["total"]["currency"],
                 operation=TransactionOperation.deposit,
             )

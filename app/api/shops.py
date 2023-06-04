@@ -5,6 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from typing import List, Optional
 from pymongo import UpdateOne
 
+from app.models.price import Currency, Price
 from app.models.shops import Shop, ShopUpdate
 from app.models.wallets import Wallet, WalletUpdate, TransactionOperation, WalletCreation
 
@@ -23,6 +24,16 @@ def create_shop(request: Request, shop: Shop = Body(...)):
     created_shop = request.app.database["shops"].find_one(
         {"_id": new_shop.inserted_id}
     )
+
+    new_wallet = WalletCreation(
+        balance=Price(
+            amount=0,
+            currency=Currency.ARS
+        ),
+        transactions=[],
+    )
+
+    create_wallet(new_shop.inserted_id, request, new_wallet)
 
     return created_shop
 
@@ -114,9 +125,7 @@ def create_wallet(id: str, request: Request, wallet: WalletCreation = Body(...))
         transactions=wallet.transactions,
     )
     wallet = jsonable_encoder(wallet)
-    print(f"la wallet es {wallet}")
     new_wallet = request.app.database["wallets"].insert_one(wallet)
-    print(f"la new wallet es {new_wallet}")
     created_wallet = request.app.database["wallets"].find_one(
         {"_id": new_wallet.inserted_id}
     )
