@@ -13,7 +13,7 @@ api_router = APIRouter()
 
 api_router.include_router(shops_router, tags=["Shops"], prefix="/shops")
 api_router.include_router(packs_router, tags=["Packs"], prefix="/packs")
-api_router.include_router(transactions_router, tags=["Transactions"], prefix="/transactions")
+# api_router.include_router(transactions_router, tags=["Transactions"], prefix="/transactions")
 api_router.include_router(users_router, tags=["Users"], prefix="/users")
 api_router.include_router(orders_router, tags=["Orders"], prefix="/orders")
 api_router.include_router(auctions_router, tags=["Auctions"], prefix="/auctions")

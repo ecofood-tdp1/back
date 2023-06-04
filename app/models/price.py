@@ -9,5 +9,5 @@ class Currency(Enum):
 
 
 class Price(BaseModel):
-    amount: float = Field(..., gt=0)
+    amount: float = Field(..., ge=0)
     currency: Currency = Field(...)

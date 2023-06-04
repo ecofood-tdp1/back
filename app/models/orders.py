@@ -6,6 +6,8 @@ from app.models.packs import Pack
 from datetime import date, timedelta
 from pydantic import BaseModel, Field
 
+from app.models.price import Price
+
 
 class OrderStatus(Enum):
     paid = "paid"
@@ -18,7 +20,8 @@ class Order(BaseModel):
     status: OrderStatus = Field(default=OrderStatus.paid)
     user_id: str = Field(...)
     shop_id: str = Field(...)
-    transaction_id: str = Field(...)
+    # transaction_id: str = Field(...)
+    total: Price = Field(...)
     packs: List[Pack] = Field(...)
     created_at: Union[str, datetime] = Field(...)
 
@@ -29,7 +32,10 @@ class Order(BaseModel):
                 "status": "paid",
                 "user_id": "4016cb54-ff0e-46a6-ace5-69304d9720c7",
                 "shop_id": "e6d09849-c62f-4fbc-9c9a-4e4c8230aa4d",
-                "transaction_id": "transaction_id",
+                "total": {
+                    "amount": 2500,
+                    "currency": "ARS",
+                },
                 "packs": [
                     {
                         "_id": "5191cfc9-c3a5-4abb-834b-4ee4e34dd90e",
