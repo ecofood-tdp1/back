@@ -45,7 +45,7 @@ def update_user(request: Request, x_user_id: Union[str, None] = Header(default=N
 
 @users_router.get(
     "",
-    response_description="Get shop cart",
+    response_description="Get User",
     response_model=User,
 )
 def add_to_cart(request: Request, x_user_id: Union[str, None] = Header(default=None)):
@@ -86,3 +86,25 @@ def add_to_cart(request: Request, x_user_id: Union[str, None] = Header(default=N
         )
 
     return user
+
+@users_router.delete(
+    "/shopcart/{pack_id}",
+    response_description="Add to shop cart",
+)
+def add_to_cart(pack_id: str, request: Request, x_user_id: Union[str, None] = Header(default=None)):
+    user = request.app.database["users"].find_one(
+        {"_id": x_user_id}
+    )
+    if user is None:
+        raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"User with ID {x_user_id} not found",
+            )
+    try:
+        user["pack_ids"].remove(pack_id)
+    except ValueError:
+        pass
+    request.app.database["users"].update_one(
+            {"_id": user["_id"]}, {"$set": user}
+        )
+    return
