@@ -133,7 +133,6 @@ def update_wallet(id: str, request: Request, transaction: WalletUpdate = Body(..
         new_amount *= -1
 
     transaction = {k: v for k, v in transaction.dict().items() if v is not None}
-    print(transaction)
     if len(transaction) >= 1:
         update_result = request.app.database["wallets"].bulk_write([
             UpdateOne({"_id": id}, {"$push": {"transactions": jsonable_encoder(transaction)}}, upsert=True),
