@@ -48,14 +48,14 @@ def update_user(request: Request, x_user_id: Union[str, None] = Header(default=N
     response_description="Get User",
     response_model=User,
 )
-def add_to_cart(request: Request, user_id: Union[str, None] = Header(default=None)):
+def add_to_cart(request: Request, x_user_id: Union[str, None] = Header(default=None)):
     user = request.app.database["users"].find_one(
-        {"_id": user_id}
+        {"_id": x_user_id}
     )
     if user is None:
         raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"User with ID {user_id} not found",
+                detail=f"User with ID {x_user_id} not found",
             )
     return user
 
