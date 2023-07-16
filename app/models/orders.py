@@ -4,7 +4,7 @@ from enum import Enum
 from typing import List, Union
 from app.models.packs import Pack
 from datetime import date, timedelta
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 
 from app.models.price import Price
 
@@ -58,7 +58,9 @@ class Order(BaseModel):
                             },
                         ],
                         "stock": 10,
-                        "best_before": (date.today() + timedelta(days=2)).strftime("%d/%m/%Y"),
+                        "best_before": (date.today() + timedelta(days=2)).strftime(
+                            "%d/%m/%Y"
+                        ),
                         "price": {
                             "amount": 2500,
                             "currency": "ARS",
@@ -70,7 +72,7 @@ class Order(BaseModel):
                         "imageURL": "http://exampleimage.com",
                     }
                 ],
-                "created_at": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                "created_at": datetime.now().strftime("%m/%d/%Y %H:%M:%S"),
             }
         }
 
